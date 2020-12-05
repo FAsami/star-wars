@@ -40,9 +40,24 @@ const vehicleFilterData = [
   { id: 10, label: "Max Atmosphering Speed", value: "maxAtmospheringSpeed" },
 ];
 
+const starshipFilterData = [
+  { id: 0, label: "ID", value: "id" },
+  { id: 1, label: "Name", value: "name" },
+  { id: 2, label: "Cost In Credits", value: "costInCredits" },
+  { id: 3, label: "Hyperdrive Rating", value: "hyperdriveRating" },
+  { id: 4, label: "Passengers", value: "passengers" },
+  { id: 5, label: "Cargo Capacity", value: "cargoCapacity" },
+  { id: 6, label: "Length", value: "length" },
+  { id: 7, label: "Max Atmosphering Speed", value: "maxAtmospheringSpeed" },
+  { id: 8, label: "Mglt", value: "mglt" },
+  { id: 9, label: "Consumables", value: "consumables" },
+  { id: 10, label: "Class", value: "class" },
+];
+
 export {
   filmFilterData,
   planetFilterData,
   personFilterData,
   vehicleFilterData,
+  starshipFilterData,
 };
