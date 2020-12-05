@@ -1,49 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import FilmsList from "./Components/Films/FilmsList";
-import Searchbar from "./Components/Common/Searchbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/Common/Navbar";
 import NotFound from "./Components/NotFound/NotFound";
-import PlanetsList from "./Components/Planets/PlanetsList";
-import PersonsList from "./Components/Persons/PersonsList";
-import VehiclesList from "./Components/Vehicles/VehiclesList";
 import StarShipsList from "./Components/Starships/StarshipsList";
-import Filter from "./Components/Common/Filter/Filter";
+import Films from "./Components/Films/Films";
+import Planets from "./Components/Planets/Planets";
+import Persons from "./Components/Persons/Persons";
+import Vehicles from "./Components/Vehicles/Vehicles";
 
 export default function App() {
-  const [keyWord, setKeyWord] = useState("");
-  const [orderBy, setOrderBy] = useState("episodeId");
-  const [orderFrom, setOrderFrom] = useState("ASC");
-  console.log(orderBy, orderFrom);
   return (
     <BrowserRouter>
       <Navbar />
-      <Searchbar keyWord={keyWord} setKeyWord={setKeyWord} />
-      <Filter setOrderBy={setOrderBy} setOrderFrom={setOrderFrom} />
       <Switch>
         <Route exact path="/">
-          <FilmsList
-            orderBy={orderBy}
-            orderFrom={orderFrom}
-            keyWord={keyWord}
-          />
+          <Films />
         </Route>
         <Route path="/films">
-          <FilmsList
-            keyWord={keyWord}
-            orderBy={orderBy}
-            orderFrom={orderFrom}
-          />
+          <Films />
         </Route>
         <Route path="/planets">
-          <PlanetsList />
+          <Planets />
         </Route>
         <Route path="/persons">
-          <PersonsList />
+          <Persons />
         </Route>
         <Route path="/vehicles">
-          <VehiclesList />
+          <Vehicles />
         </Route>
         <Route path="/starships">
           <StarShipsList />

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Planet({ planet }) {
-  console.log(planet);
   return (
     <div className="col-md-8 mx-auto mb-3">
       <div className="card">

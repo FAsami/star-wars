@@ -5,13 +5,18 @@ import {
   getFilmSearchQuery,
 } from "../../Queries/filmQueries";
 import Loading from "../Common/Loading";
+import Pagination from "../Common/Pagination";
 import Film from "./Film";
 
 function FilmsList({ keyWord, orderBy, orderFrom }) {
   const [isSearching, setIsSearching] = useState(false);
+  const [itemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     if (keyWord.length > 0) {
       setIsSearching(true);
+      setCurrentPage(1);
     } else {
       setIsSearching(false);
     }
@@ -28,12 +33,19 @@ function FilmsList({ keyWord, orderBy, orderFrom }) {
     error: filterError,
     data: filteredData,
   } = useQuery(getFilmFilterQuery(orderBy, orderFrom));
+
   let data;
-  if (isSearching) {
-    data = searchedData;
-  } else {
-    data = filteredData;
-  }
+  isSearching ? (data = searchedData) : (data = filteredData);
+
+  const getCurrentItems = () => {
+    const indexOfLastPost = currentPage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    let currentItems;
+    if (data) {
+      currentItems = data.films.slice(indexOfFirstPost, indexOfLastPost);
+    }
+    return currentItems;
+  };
 
   if (filterLoading || searchLoading) return <Loading />;
   if (filterError || searchError)
@@ -41,10 +53,18 @@ function FilmsList({ keyWord, orderBy, orderFrom }) {
 
   return (
     <div>
-      <p className="text-center">Displaying {data.films.length} films</p>
-      {data.films.map((film) => (
+      <p className="text-center">
+        Displaying {getCurrentItems().length} of {data.films.length} films
+      </p>
+      {getCurrentItems().map((film) => (
         <Film key={film.id} film={film} />
       ))}
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalItems={data.films.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 }

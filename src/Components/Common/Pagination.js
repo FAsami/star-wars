@@ -1,20 +1,35 @@
 import React from "react";
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({
+  itemsPerPage,
+  totalItems,
+  paginate,
+  currentPage,
+  setCurrentPage,
+}) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
-
   return (
-    <nav>
+    <nav className={itemsPerPage >= totalItems ? "d-none" : "col-md-8 mx-auto"}>
+      <hr />
+      <p>Go to page </p>
       <ul className="pagination">
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
+          <li
+            key={number}
+            className={
+              number === currentPage ? "page-item active" : "page-item"
+            }
+          >
+            <button
+              onClick={() => setCurrentPage(number)}
+              className="page-link"
+            >
               {number}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
